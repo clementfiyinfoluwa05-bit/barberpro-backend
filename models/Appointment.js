@@ -27,7 +27,16 @@ const appointmentSchema = new mongoose.Schema({
   notes: {
     type: String,
     default: ''
-  }
+  },
+  // Business email notification tracking (used to prevent duplicate emails)
+  notificationStatus: {
+    type: String,
+    enum: ['pending', 'sending', 'sent', 'failed'],
+    default: 'pending'
+  },
+  notificationAttempts: { type: Number, default: 0 },
+  notificationAttemptAt: { type: Date },
+  notifiedAt: { type: Date }
 }, { timestamps: true });
 
 module.exports = mongoose.model('Appointment', appointmentSchema);

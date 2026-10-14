@@ -5,6 +5,7 @@ const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 const serviceRoutes = require("./routes/serviceRoutes");
 const appointmentRoutes = require("./routes/appointmentRoutes");
+const { verifyEmailTransport } = require("./utils/sendEmail");
 
 dotenv.config();
 connectDB();
@@ -27,4 +28,6 @@ app.get("/", (req, res) => {
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+  // Logs whether Gmail SMTP is reachable/authorised (does not send an email).
+  verifyEmailTransport();
 });
